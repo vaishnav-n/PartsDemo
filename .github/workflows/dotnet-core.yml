@@ -1,0 +1,37 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+
+    steps:
+    - uses: actions/checkout@v2
+
+ 
+    - name: setup-msbuild
+      uses: microsoft/setup-msbuild@v1.0.1
+    - name: Setup NuGet.exe
+      uses: NuGet/setup-nuget@v1.0.2
+      
+    - name: Restore
+      run: nuget restore
+      
+    - name: Build
+      run: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true
+    
+    - name: Pack
+      run: nuget pack src/PartsUnlimitedWebsite/PartsUnlimited.nuspec -OutputDirectory NewPackages 
