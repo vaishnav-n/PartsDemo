@@ -34,4 +34,4 @@ jobs:
       run: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true
     
     - name: Pack
-      run: nuget pack src/PartsUnlimitedWebsite/PartsUnlimited.nuspec -OutputDirectory NewPackages 
+      run: nuget pack src/PartsUnlimitedWebsite/PartsUnlimitedWebsite.nuspec -OutputDirectory NewPackages 
