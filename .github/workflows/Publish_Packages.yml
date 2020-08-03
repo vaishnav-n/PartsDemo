@@ -52,19 +52,23 @@ jobs:
     runs-on: windows-latest
     needs: [build]
     steps: 
-      - name: Download and Extract Artifact
-        uses: dawidd6/action-download-artifact@v2.7.0
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
         with:
-          workflow: Publish_Packages.yml
           name: artifact
           path: Webdir
+        
+      - name: Decompress
+        uses: TonyBogdanov/zip@1.0
+        with:
+         args: unzip -qq Webdir\*.zip -d TmpPath\
         
       - name: Deploy to Azure App Service
         uses: Azure/webapps-deploy@v2
         with:
           app-name: partsunltddemo
           publish-profile: ${{secrets.Web_Publish_Profile}}
-          package: Webdir\
+          package: TmpPath\
         
     
     
