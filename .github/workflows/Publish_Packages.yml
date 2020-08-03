@@ -32,6 +32,6 @@ jobs:
       run: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true
           
     - name: Publish
-      run: nuget push "NewPackages\PartsUnlimitedWebsite.0.0.2.nupkg" -Source GHPackageSource
+      run: nuget push "NewPackages\PartsUnlimitedWebsite.0.0.2.nupkg" -Source github -ApiKey gh -SkipDuplicate
 
     
