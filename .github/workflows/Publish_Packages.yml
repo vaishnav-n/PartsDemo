@@ -30,14 +30,11 @@ jobs:
       
     - name: Build
       run: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true
-    
-    - name: Add Source
-      run: nuget SetApiKey ${{secrets.GH_TOKEN}} -Source "GHPkgNew1"
       
     - name: Pack
       run: nuget pack src/PartsUnlimitedWebsite/PartsUnlimitedWebsite.nuspec -OutputDirectory NewPackages  
       
     - name: Publish
-      run: nuget push NewPackages\*.nupkg -Source "GHPkgNew1" -ApiKey ${{secrets.GH_TOKEN}} -SkipDuplicate
+      run: nuget push NewPackages\*.nupkg -Source "GHPkgNew1" -SkipDuplicate
 
     
