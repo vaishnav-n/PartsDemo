@@ -56,12 +56,13 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: artifact
-          path: Webdir
+          path: TmpPath
         
-      - name: Decompress
-        uses: TonyBogdanov/zip@1.0
+      - name: Extract Artifacts
+        uses: DuckSoft/extract-7z-action@v1.0
         with:
-         args: unzip -qq Webdir\*.zip -d TmpPath\
+         pathSource: TmpPath\*.zip
+         pathTarget: TmpPath\
         
       - name: Deploy to Azure App Service
         uses: Azure/webapps-deploy@v2
