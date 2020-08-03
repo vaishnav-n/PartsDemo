@@ -31,4 +31,10 @@ jobs:
     - name: Build
       run: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true
     
+    - name: Pack
+      run: nuget pack src/PartsUnlimitedWebsite/PartsUnlimitedWebsite.nuspec -OutputDirectory NewPackages 
+      
+    - name: Publish
+      run: nuget push "NewPackages\PartsUnlimitedWebsite.0.0.1.nupkg" --source https://nuget.pkg.github.com/vaishnav-n/index.json -u vaishnav-n -p GH_TOKEN
+
     
