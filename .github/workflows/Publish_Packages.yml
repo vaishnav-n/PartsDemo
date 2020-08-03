@@ -1,0 +1,75 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+ 
+    - name: setup-msbuild
+      uses: microsoft/setup-msbuild@v1.0.1
+    - name: Setup NuGet.exe
+      uses: NuGet/setup-nuget@v1.0.2
+      
+    - name: Restore
+      run: nuget restore
+      
+    - name: Build
+      run: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true /p:PackageLocation="${{github.workspace}}\stagingdir"
+    
+    - name: Add ApiKey
+      run: nuget SetApiKey ${{secrets.GH_TOKEN}} -source "GHPkgNew1"
+      
+    - name: Pack
+      run: nuget pack src/PartsUnlimitedWebsite/PartsUnlimitedWebsite.nuspec -OutputDirectory NewPackages  
+      
+    - name: Publish
+      run: nuget push NewPackages\*.nupkg -Source "GHPkgNew1" -ApiKey ${{secrets.GH_TOKEN}} -SkipDuplicate
+    
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v2
+      with:
+          name: artifact
+          path: ${{github.workspace}}\stagingdir
+      
+  deploy:
+    
+    name: App Deploy
+    runs-on: windows-latest
+    needs: [build]
+    steps: 
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: artifact
+          path: TmpPath
+        
+      - name: Extract Artifacts
+        uses: DuckSoft/extract-7z-action@v1.0
+        with:
+         pathSource: TmpPath\*.zip
+         pathTarget: TmpPath\
+        
+      - name: Deploy to Azure App Service
+        uses: Azure/webapps-deploy@v2
+        with:
+          app-name: partsunltddemo
+          publish-profile: ${{secrets.Web_Publish_Profile}}
+          package: TmpPath\Content\D_C\a\PartsDemo\PartsDemo\src\PartsUnlimitedWebsite\obj\Release\Package\PackageTmp
+        
+    
+    
