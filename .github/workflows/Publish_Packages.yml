@@ -30,11 +30,14 @@ jobs:
       
     - name: Build
       run: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true
-      
+    
+    - name: Add Source
+      run: nuget sources add -name "GithubPkgReg" -Source https://nuget.pkg.github.com/vaishnav-n/index.json -Username vaishnav-n -Password ${{ secrets.GH_TOKEN }}
+   
     - name: Pack
       run: nuget pack src/PartsUnlimitedWebsite/PartsUnlimitedWebsite.nuspec -OutputDirectory NewPackages  
       
     - name: Publish
-      run: dotnet nuget push NewPackages\*.nupkg -k ${{secrets.GH_TOKEN}} -s https://nuget.pkg.github.com/vaishnav-n/index.json
+      run: nuget push NewPackages\*.nupkg -Source "GithubPkgReg" -SkipDuplicate
 
     
