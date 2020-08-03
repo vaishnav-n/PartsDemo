@@ -5,5 +5,6 @@
         <authors>CanarysTeam</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>PartsUnlimitedWebsite</description>
+        <repository type="git" url="https://github.com/vaishnav-n/PartsDemo.git" />
     </metadata>
 </package>
