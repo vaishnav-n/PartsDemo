@@ -69,7 +69,7 @@ jobs:
         with:
           app-name: partsunltddemo
           publish-profile: ${{secrets.Web_Publish_Profile}}
-          package: TmpPath\
+          package: Content\D_C\a\PartsDemo\PartsDemo\src\PartsUnlimitedWebsite\obj\Release\Package\PackageTmp
         
     
     
