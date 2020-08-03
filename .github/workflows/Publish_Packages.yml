@@ -33,12 +33,12 @@ jobs:
     
     - name: Add Source
       run: |
-        nuget source Add -name "GHPkgNew" -Source https://nuget.pkg.github.com/vaishnav-n/PartsDemo/index.json -Username vaishnav-n -Password ${{secrets.GH_TOKEN}}
-        nuget SetApiKey ${{secrets.GH_TOKEN}} -Source "GHPkgNew"
+        nuget source Add -name "GHubNew" -Source https://nuget.pkg.github.com/vaishnav-n/PartsDemo/index.json -Username vaishnav-n
+        nuget SetApiKey ${{secrets.GH_TOKEN}} -Source "GHubNew"
     - name: Pack
       run: nuget pack src/PartsUnlimitedWebsite/PartsUnlimitedWebsite.nuspec -OutputDirectory NewPackages  
       
     - name: Publish
-      run: nuget push NewPackages\*.nupkg -Source "GHPkgNew" -ApiKey ${{secrets.GH_TOKEN}} -SkipDuplicate
+      run: nuget push NewPackages\*.nupkg -Source "GHubNew" -ApiKey ${{secrets.GH_TOKEN}} -SkipDuplicate
 
     
