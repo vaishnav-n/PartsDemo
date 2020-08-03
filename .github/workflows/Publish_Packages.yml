@@ -32,9 +32,9 @@ jobs:
       run: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true
     
     - name: Add Nuget Source
-      run: dotnet nuget add source https://nuget.pkg.github.com/vaishnav-n/index.json -n Github -u vaishnav-n -p GH_TOKEN
+      run: dotnet nuget add source https://nuget.pkg.github.com/vaishnav-n/index.json -n GHPackageSource -u vaishnav-n -p GH_TOKEN
       
     - name: Publish
-      run: nuget push "NewPackages\PartsUnlimitedWebsite.0.0.2.nupkg" --source "Github"
+      run: nuget push "NewPackages\PartsUnlimitedWebsite.0.0.2.nupkg" --source "GHPackageSource"
 
     
