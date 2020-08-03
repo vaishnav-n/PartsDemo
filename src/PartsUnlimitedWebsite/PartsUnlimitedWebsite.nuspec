@@ -1,7 +1,7 @@
-﻿<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>PartsUnlimitedWebsite</id>
-        <version>0.0.1</version>
+        <version>0.0.2</version>
         <authors>CanarysTeam</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>PartsUnlimitedWebsite</description>
