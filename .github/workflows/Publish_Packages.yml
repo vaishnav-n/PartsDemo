@@ -33,11 +33,8 @@ jobs:
       
     - name: Pack
       run: nuget pack src/PartsUnlimitedWebsite/PartsUnlimitedWebsite.nuspec -OutputDirectory NewPackages  
-    
-    - name: Add Nuget Pkg Source
-      run: dotnet nuget add source https://nuget.pkg.github.com/vaishnav-n/index.json -n GHPkgSource2 -u vaishnav-n -p ${{secrets.GH_TOKEN}}
-          
+      
     - name: Publish
-      run: dotnet nuget push NewPackages\*.nupkg --source "GHPkgSource2"
+      run: dotnet nuget push NewPackages\*.nupkg -k ${{secrets.GH_TOKEN}} -s https://nuget.pkg.github.com/vaishnav-n/index.json
 
     
