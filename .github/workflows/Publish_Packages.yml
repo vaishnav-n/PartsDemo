@@ -32,13 +32,12 @@ jobs:
       run: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true
     
     - name: Add Source
-      run: |
-        nuget source Add -name "GHubNew" -Source https://nuget.pkg.github.com/vaishnav-n/PartsDemo/index.json -Username vaishnav-n
-        nuget SetApiKey ${{secrets.GH_TOKEN}} -Source "GHubNew"
+      run: nuget SetApiKey ${{secrets.GH_TOKEN}} -Source https://nuget.pkg.github.com/vaishnav-n/PartsDemo/index.json
+      
     - name: Pack
       run: nuget pack src/PartsUnlimitedWebsite/PartsUnlimitedWebsite.nuspec -OutputDirectory NewPackages  
       
     - name: Publish
-      run: nuget push NewPackages\*.nupkg -Source "GHubNew" -ApiKey ${{secrets.GH_TOKEN}} -SkipDuplicate
+      run: nuget push NewPackages\*.nupkg -Source "GHPkgNew1" -ApiKey ${{secrets.GH_TOKEN}} -SkipDuplicate
 
     
