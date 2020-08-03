@@ -29,7 +29,7 @@ jobs:
       run: nuget restore
       
     - name: Build
-      run: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true
+      run: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true /p:PackageLocation="${{github.workspace}}\stagingdir"
     
     - name: Add ApiKey
       run: nuget SetApiKey ${{secrets.GH_TOKEN}} -source "GHPkgNew1"
