@@ -55,7 +55,7 @@ jobs:
       - name: Download and Extract Artifact
         uses: dawidd6/action-download-artifact@v2.7.0
         with:
-          workflow: Publish_Packages
+          workflow: Publish_Packages.yml
           name: artifact
           path: Webdir
         
