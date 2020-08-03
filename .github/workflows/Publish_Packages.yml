@@ -39,6 +39,6 @@ jobs:
       run: nuget pack src/PartsUnlimitedWebsite/PartsUnlimitedWebsite.nuspec -OutputDirectory NewPackages  
       
     - name: Publish
-      run: nuget push NewPackages\*.nupkg -Source "GithubPkgReg" -ApiKey ${{secrets.GH_TOKEN}} -SkipDuplicate
+      run: nuget push NewPackages\*.nupkg -Source "GithubPkgRegNew" -ApiKey ${{secrets.GH_TOKEN}} -SkipDuplicate
 
     
