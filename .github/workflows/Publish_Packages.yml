@@ -39,5 +39,32 @@ jobs:
       
     - name: Publish
       run: nuget push NewPackages\*.nupkg -Source "GHPkgNew1" -ApiKey ${{secrets.GH_TOKEN}} -SkipDuplicate
-
+    
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v2
+      with:
+          name: artifact
+          path: ${{github.workspace}}\stagingdir
+      
+  deploy:
+    
+    name: App Deploy
+    runs-on: windows-latest
+    needs: [build]
+    steps: 
+      - name: Download and Extract Artifact
+        uses: dawidd6/action-download-artifact@v2.7.0
+        with:
+          workflow: Publish_Packages
+          name: artifact
+          path: Webdir
+        
+      - name: Deploy to Azure App Service
+        uses: Azure/webapps-deploy@v2
+        with:
+          app-name: partsunltddemo
+          publish-profile: ${{secrets.Web_Publish_Profile}}
+          package: Webdir\
+        
+    
     
