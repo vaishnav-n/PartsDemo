@@ -2,8 +2,7 @@
 
 name: CI
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
+
 on:
   push:
     branches: [ master ]
@@ -16,7 +15,6 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: windows-latest
-
 
     steps:
     - uses: actions/checkout@v2
@@ -33,5 +31,4 @@ jobs:
     - name: Build
       run: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true
     
-    - name: Pack
-      run: nuget pack src/PartsUnlimitedWebsite/PartsUnlimitedWebsite.nuspec -OutputDirectory NewPackages 
+    
