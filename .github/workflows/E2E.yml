@@ -4,7 +4,7 @@ name: E2E Workflow
 
 on:
   push:
-    branches: [ Test_Branch ]
+    branches: Test_Branch
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
