@@ -19,8 +19,5 @@ jobs:
     - name: Setup NuGet.exe for use with actions
       uses: NuGet/setup-nuget@v1.0.2
       
-    - name: Restore
-      uses: nuget restore 
-      
-    - name: Msbuild
+    - name: Build
       uses: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true 
