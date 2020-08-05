@@ -4,20 +4,26 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
-
+    branches: master
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  # This workflow contains a single job called "build"
   build:
+    # The type of runner that the job will run on
     runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
-      
+
+ 
     - name: setup-msbuild
       uses: microsoft/setup-msbuild@v1.0.1
-      
-    - name: Setup NuGet.exe for use with actions
+    - name: Setup NuGet.exe
       uses: NuGet/setup-nuget@v1.0.2
       
+    - name: Restore
+      run: nuget restore
+      
     - name: Build
-      uses: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true 
+      run: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true /p:PackageLocation="${{github.workspace}}\stagingdir"
+    
