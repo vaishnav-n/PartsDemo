@@ -30,4 +30,4 @@ jobs:
       uses: nuget restore PartsUnlimited.sln
       
     - name: Msbuild
-      uses: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true /p:PackageLocation="${{github.workspace}}\stagingdir"
+      uses: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true 
