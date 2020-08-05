@@ -27,7 +27,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.1
       
     - name: Restore
-      uses: nuget restore PartsUnlimited.sln
+      uses: nuget restore 
       
     - name: Msbuild
       uses: msbuild PartsUnlimited.sln /p:Configuration=Release /p:Platform='Any CPU' /p:DeployOnBuild=true 
